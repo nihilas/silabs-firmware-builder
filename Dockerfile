@@ -30,21 +30,21 @@ RUN \
 ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 
+COPY bin/SimplicityCommander-Linux.zip .
+
 # Install Simplicity Commander (unfortunately no stable URL available, this
 # is known to be working with Commander_linux_x86_64_1v15p0b1306.tar.bz).
-RUN \
-    curl -O https://www.silabs.com/documents/login/software/SimplicityCommander-Linux.zip \
-    && unzip -q SimplicityCommander-Linux.zip \
+RUN unzip -q SimplicityCommander-Linux.zip \
     && tar -C /opt -xjf SimplicityCommander-Linux/Commander_linux_x86_64_*.tar.bz \
     && rm -r SimplicityCommander-Linux \
     && rm SimplicityCommander-Linux.zip
 
 ENV PATH="$PATH:/opt/commander"
 
+COPY bin/slc_cli_linux.zip .
+
 # Install Silicon Labs Configurator (slc)
-RUN \
-    curl -O https://www.silabs.com/documents/login/software/slc_cli_linux.zip \
-    && unzip -q -d /opt slc_cli_linux.zip \
+RUN unzip -q -d /opt slc_cli_linux.zip \
     && rm slc_cli_linux.zip
 
 ENV PATH="$PATH:/opt/slc_cli"
@@ -55,12 +55,12 @@ RUN \
     && tar -C /opt -xf arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz \
     && rm arm-gnu-toolchain-12.2.rel1-x86_64-arm-none-eabi.tar.xz
 
-# Simplicity SDK 2025.6.1
+# Simplicity SDK 2025.6.2
 RUN \
-    curl -o simplicity_sdk_2025.6.1.zip -L https://github.com/SiliconLabs/simplicity_sdk/releases/download/v2025.6.1/simplicity-sdk.zip \
-    && unzip -q -d simplicity_sdk_2025.6.1 simplicity_sdk_2025.6.1.zip \
-    && rm simplicity_sdk_2025.6.1.zip \
-    && chown ubuntu:ubuntu -R /simplicity_sdk_2025.6.1
+    curl -o simplicity_sdk_2025.6.2.zip -L https://github.com/SiliconLabs/simplicity_sdk/releases/download/v2025.6.2/gecko-sdk.zip \
+    && unzip -q -d simplicity_sdk_2025.6.2 simplicity_sdk_2025.6.2.zip \
+    && rm simplicity_sdk_2025.6.2.zip \
+    && chown ubuntu:ubuntu -R /simplicity_sdk_2025.6.2
 
 # ZCL Advanced Platform (ZAP) v2025.06.09
 RUN \
